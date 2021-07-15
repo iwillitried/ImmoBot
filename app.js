@@ -27,8 +27,8 @@ bot.on('text', (ctx) => {
     ctx.reply(`Looking for new results on: ${ctx.update.message.text}`); 
 });
 
-bot.launch();
-console.log("Launched Telegram bot");
+//bot.launch();
+//console.log("Launched Telegram bot");
 
 function fetchResults() {
     //console.log("Fetching: ", clients);
@@ -49,4 +49,4 @@ function sendResults(chatID, resultIDs) {
     }
 }
 
-setInterval(fetchResults, 120000); // Start fetch every two minutes
+//setInterval(fetchResults, 120000); // Start fetch every two minutes
