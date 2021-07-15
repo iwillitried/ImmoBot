@@ -1,9 +1,10 @@
 
 const { Telegraf } = require('telegraf');
 const ImmoCrawler = require('./Immocrawler');
-process.env.BOT_TOKEN = "1773464054:AAHQlAofGmk5BEmTeNr2aK4Ig2LTy70qlyg"
-const bot = new Telegraf(process.env.BOT_TOKEN)
-const { PORT=3000, LOCAL_ADDRESS='0.0.0.0' } = process.env
+BOT_TOKEN = "1773464054:AAHQlAofGmk5BEmTeNr2aK4Ig2LTy70qlyg"
+const bot = new Telegraf(BOT_TOKEN)
+const PORT = process.env.PORT || 3000;
+const URL = process.env.URL || 'https://git.heroku.com/berlin-immo-bot.git';
 
 
 /**
@@ -49,6 +50,8 @@ function sendResults(chatID, resultIDs) {
     }
 }
 
-bot.startWebhook(LOCAL_ADDRESS, null, PORT);
-console.log("Launched Telegram bot on port ", PORT, " Adress: ", LOCAL_ADDRESS);
+bot.telegram.setWebhook(`${URL}/bot${BOT_TOKEN}`);
+bot.startWebhook(`/bot${BOT_TOKEN}`, null, PORT)
+console.log("Launched Telegram bot on port ", PORT, " Adress: ", `${URL}/bot${BOT_TOKEN}`);
 setInterval(fetchResults, 120000); // Start fetch every two minutes
+
