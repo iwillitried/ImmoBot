@@ -52,7 +52,7 @@ ImmoCrawler.prototype.fetch = function fetch() {
     let lastFetch = store[this.url_string].lastFetch;
     let now = Date.now(); 
     if (lastFetch === undefined || now - lastFetch > 10000) {
-        this.crawler.queue(this.url_string);
+        //this.crawler.queue(this.url_string);
         store[this.url_string].lastFetch = now; 
     }
 }
