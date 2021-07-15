@@ -1,7 +1,10 @@
+
 const { Telegraf } = require('telegraf');
 const ImmoCrawler = require('./Immocrawler');
 process.env.BOT_TOKEN = "1773464054:AAHQlAofGmk5BEmTeNr2aK4Ig2LTy70qlyg"
 const bot = new Telegraf(process.env.BOT_TOKEN)
+const { PORT=3000, LOCAL_ADDRESS='0.0.0.0' } = process.env
+
 
 /**
  * Using: 
@@ -26,8 +29,9 @@ bot.on('text', (ctx) => {
     clients[ctx.chat.id] = client; 
     ctx.reply(`Looking for new results on: ${ctx.update.message.text}`); 
 });
-
-bot.launch();
+  
+console.log("Port: ", PORT);
+bot.startWebhook(LOCAL_ADDRESS, null, PORT);
 console.log("Launched Telegram bot");
 
 function fetchResults() {
