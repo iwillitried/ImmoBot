@@ -54,3 +54,5 @@ function sendResults(chatID, resultIDs) {
         bot.telegram.sendMessage(chatID, "https://www.immobilienscout24.de/expose/" + resultID); 
     }
 }
+
+setInterval(fetchResults, 60 * 1000) 
