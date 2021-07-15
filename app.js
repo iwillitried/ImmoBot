@@ -50,5 +50,5 @@ function sendResults(chatID, resultIDs) {
 }
 
 bot.startWebhook(LOCAL_ADDRESS, null, PORT);
-console.log("Launched Telegram bot on port ", PORT);
+console.log("Launched Telegram bot on port ", PORT, " Adress: ", LOCAL_ADDRESS);
 setInterval(fetchResults, 120000); // Start fetch every two minutes
