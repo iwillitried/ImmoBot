@@ -50,8 +50,15 @@ function sendResults(chatID, resultIDs) {
 }
 
 //setInterval(fetchResults, 120000); // Start fetch every two minutes
-
-while (true) {
-    sleep(2000);
-    console.log("Hello World!");
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
+  
+async function hello() {
+    while (true) {
+        await sleep(2000);
+        console.log("Hello World!");
+    }
+}
+
+hello(); 
