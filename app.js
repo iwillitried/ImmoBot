@@ -29,10 +29,6 @@ bot.on('text', (ctx) => {
     clients[ctx.chat.id] = client; 
     ctx.reply(`Looking for new results on: ${ctx.update.message.text}`); 
 });
-  
-console.log("Port: ", PORT);
-bot.startWebhook(LOCAL_ADDRESS, null, PORT);
-console.log("Launched Telegram bot");
 
 function fetchResults() {
     //console.log("Fetching: ", clients);
@@ -53,16 +49,6 @@ function sendResults(chatID, resultIDs) {
     }
 }
 
-//setInterval(fetchResults, 120000); // Start fetch every two minutes
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-  
-async function hello() {
-    while (true) {
-        await sleep(2000);
-        console.log("Hello World!");
-    }
-}
-
-hello(); 
+bot.startWebhook(LOCAL_ADDRESS, null, PORT);
+console.log("Launched Telegram bot on port ", PORT);
+setInterval(fetchResults, 120000); // Start fetch every two minutes
