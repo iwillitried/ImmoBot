@@ -1,12 +1,21 @@
 
 const { Telegraf } = require('telegraf');
 const ImmoCrawler = require('./Immocrawler');
-BOT_TOKEN = "1773464054:AAHQlAofGmk5BEmTeNr2aK4Ig2LTy70qlyg"
-const bot = new Telegraf(BOT_TOKEN)
+const express = require('express');
+const expressApp = express();
+const API_TOKEN = "1773464054:AAHQlAofGmk5BEmTeNr2aK4Ig2LTy70qlyg"
 const PORT = process.env.PORT || 3000;
-const URL = process.env.URL || 'https://git.heroku.com/berlin-immo-bot.git';
+const URL = process.env.URL || 'https://berlin-immo-bot.herokuapp.com/';
 
-
+const bot = new Telegraf(API_TOKEN);
+bot.telegram.setWebhook(`${URL}/bot${API_TOKEN}`);
+expressApp.get('/', (req, res) => {
+    res.send('Hello World!');
+  });
+expressApp.use(bot.webhookCallback(`/bot${API_TOKEN}`));
+expressApp.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 /**
  * Using: 
  * Telegram Framework: https://www.section.io/engineering-education/telegram-bot-in-nodejs/
@@ -49,9 +58,10 @@ function sendResults(chatID, resultIDs) {
         bot.telegram.sendMessage(chatID, "https://www.immobilienscout24.de/expose/" + resultID); 
     }
 }
-
-bot.telegram.setWebhook(`${URL}`);
-bot.startWebhook(`/`, null, PORT)
-console.log("Launched Telegram bot on port ", PORT, " Adress: ", `${URL}`);
+/* 
+bot.telegram.setWebhook(`${URL}/bot${API_TOKEN}`);
+bot.startWebhook(`/bot${API_TOKEN}`, null, PORT)
+console.log("Launched Telegram bot on port ", PORT, " Adress: ", `${URL}/bot${API_TOKEN}`);
 setInterval(fetchResults, 120000); // Start fetch every two minutes
 
+*/
